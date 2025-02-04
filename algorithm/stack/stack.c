@@ -1,25 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_STACK_SIZE		100
+
 typedef int element;
 
 typedef struct {
-	element *data;
-	int capacity;
+	element data[MAX_STACK_SIZE];
 	int top;
 }StackType;
 
 void init_stack(StackType* s)
 {
 	s->top = -1;
-	s->capacity = 1;
-	s->data = (element*)malloc(s->capacity * sizeof(element));
-
-	if (s->data == NULL)
-	{
-		printf("error\n");
-		exit(1);
-	}
 }
 
 int is_empty(StackType *s)
@@ -29,21 +22,15 @@ int is_empty(StackType *s)
 
 int is_full(StackType *s)
 {
-	return (s->top == (s->capacity - 1));
+	return (s->top == (MAX_STACK_SIZE -1));
 }
 
 void push(StackType *s, element item)
 {
 	if (is_full(s))
-	{
-		s->capacity *= 2;
-		s->data = (element *)realloc(s->data, s->capacity * sizeof(element));
-
-		if (s->data == NULL)
-		{
-			printf("error\n");
-			exit(1);
-		}
+	{	
+		printf("Stack overflow\n");
+		return; // 심각한 오류는 아니기 때문에 exit가 아닌 return
 	}
 	s->data[++(s->top)] = item;
 }
@@ -55,7 +42,6 @@ element pop(StackType *s)
 		printf("Stack underflow\n");
 		exit(1);
 	}
-	
 	return s->data[(s->top)--];
 }
 
@@ -83,6 +69,5 @@ int main()
 	printf("%d\n", pop(&s));
 	printf("%d\n", pop(&s));
 
-	free(s.data);
 	return 0;
 }
