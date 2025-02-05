@@ -36,18 +36,12 @@ void queue_print(QueueType* q)
 
 int is_full(QueueType* q)
 {
-	if (q->rear == MAX_QUEUE_SIZE - 1)
-		return 1;
-	else
-		return 0;
+	return (q->rear == MAX_QUEUE_SIZE - 1);
 }
 
 int is_empty(QueueType* q)
 {
-	if (q->front == q->rear)
-		return 1;
-	else
-		return 0;
+	return (q->front == q->rear);
 }
 
 void enqueue(QueueType* q, int item)
@@ -65,7 +59,7 @@ int dequeue(QueueType* q)
 	if (is_empty(q))
 	{
 		printf("Queue Underflow\n");
-		return -1;
+		exit(1);
 	}
 	int item = q->data[++(q->front)];
 	return item;
