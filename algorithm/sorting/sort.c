@@ -23,7 +23,12 @@ void selection_sort(int* arr, int count)
 				least = j;
 			}
 		}
-		swap(arr[i], arr[least], temp) //찾은 최소값 swap
+
+		if (i != least)
+		{
+			swap(arr[i], arr[least], temp) //찾은 최소값 swap
+		}
+			
 	}
 }
 
@@ -83,10 +88,8 @@ void shell_sort(int* arr, int count)
 	int i, gap;
 	for (gap = count / 2; gap > 0; gap = gap / 2)
 	{
-		if ((gap % 2) == 0) //짝수보다 홀수가 더욱 효율적이기 때문에 짝수라면 홀수로 변경
-		{
-			gap++;
-		}
+		if ((gap % 2) == 0)	gap++; // 짝수보다 홀수가 더욱 효율적이기 때문에 짝수라면 홀수로 변경
+
 		for (i = 0; i < gap; i++)
 		{
 			inc_insertion_sort(arr, i, count - 1, gap); //i를 기준으로 각 그룹 별로 삽입정렬 수행
